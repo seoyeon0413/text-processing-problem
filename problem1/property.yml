@@ -1,4 +1,4 @@
 input: input.txt
-option: replace
+option: remove
 special characters: "*&%^)}]'\";:.,/?"
 output: output.txt

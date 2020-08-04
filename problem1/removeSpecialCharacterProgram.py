@@ -3,12 +3,12 @@ import pandas as pd
 import yaml
 
 
-class Remove_Special_Character_Program:
+class RemoveSpecialCharacterProgram:
 
     def __init__(self):
         pass
 
-    def input_remove_specialCharacter(self, text, sc):
+    def input_remove_special_character(self, text, sc):
         '''
         get input punctuation and remove them
         :param text: text data with dataframe type
@@ -20,7 +20,7 @@ class Remove_Special_Character_Program:
         no_sc = "".join([c for c in text if c not in sc])
         return no_sc
 
-    def replace_specialCharacter(self, text):
+    def replace_special_character(self, text):
         '''
         replace special character to spacebar character
         :param text: text data with dataframe type
@@ -62,13 +62,13 @@ class Remove_Special_Character_Program:
         '''
 
         scOption = propertyData['option']
-        if (scOption == 'replace'):
+        if (scOption == 'remove'):
             specialChar = propertyData['special characters']
             outputFileName = propertyData['output']
-            data['text'] = data['text'].apply(lambda x: self.input_remove_specialCharacter(x, specialChar))
-        elif (scOption == 'remove'):
+            data['text'] = data['text'].apply(lambda x: self.input_remove_special_character(x, specialChar))
+        elif (scOption == 'replace'):
             outputFileName = propertyData['output']
-            data['text'] = data['text'].apply(lambda x: self.replace_specialCharacter(x))
+            data['text'] = data['text'].apply(lambda x: self.replace_special_character(x))
         else:
             print("\'option\'에 \'remove\' (이)나 \'replace\' 를 입력해야합니다.")
             sys.exit()
@@ -118,17 +118,21 @@ class Remove_Special_Character_Program:
         ext = outFName.split('.')[1]
 
         if (ext == "csv"):  # result to csv
-            data.to_csv(fn + '.csv', index=False, header=['docNum', 'text'])
+            try:
+                data.to_csv(fn + '.csv', index=False, header=['word', 'count'])
+            except PermissionError as e:
+                print("해당 CSV파일을 닫아주시기 바랍니다: {}".format(e))
         elif (ext == "txt"):    # result to txt
             fn = fn + '.txt'
-            with open(fn, 'w') as f:
-                f.write(data.to_string(header=False, index=False))
+            with open(fn, 'w') as file:
+                for c in range(len(data)):
+                    file.writelines(str(data['docNum'][c]) + str(data['text'][c]) + "\n")
         elif (ext == "json"):   # result to json
             fn = fn + '.json'
             data.to_json(fn, orient='table')
         else:
             print("Error: Write Another Extension (csv, txt, json)")
-            self.write_data(data, outFName)
+            sys.exit()
 
     def run(self):
         '''
@@ -146,5 +150,5 @@ class Remove_Special_Character_Program:
 
 
 if __name__ == "__main__":
-    removeSpecialCharacterProgram = Remove_Special_Character_Program()
+    removeSpecialCharacterProgram = RemoveSpecialCharacterProgram()
     removeSpecialCharacterProgram.run()

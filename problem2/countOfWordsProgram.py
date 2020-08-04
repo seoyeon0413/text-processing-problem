@@ -2,7 +2,7 @@ import sys
 import yaml
 import pandas as pd
 
-class Count_Of_Words_Program:
+class CountOfWordsProgram:
 
     def __init__(self):
         pass
@@ -55,15 +55,19 @@ class Count_Of_Words_Program:
         '''
         wordsList = words.split(',')
 
+        totalCount = 0
         count = [0 for i in range(len(wordsList))]
         for sentence in blankData:
             for wordInSentence in sentence:
+                totalCount += 1
                 for wIndex in range(len(wordsList)):
                     if(wordInSentence == wordsList[wIndex]):
                         count[wIndex] += 1
 
-        for i in range(len(count)):
-            if count[i] == 0:
+        print('the number of words in text data:', totalCount)
+
+        for c in count:
+            if c == 0:
                 print("------------------------------------------------------------------")
                 print("@Warning! count value is 0.")
                 print("Check the property file: 'word' have to be splitted by just ','.")
@@ -126,5 +130,5 @@ class Count_Of_Words_Program:
 
 
 if __name__ == "__main__":
-    countOfWordsProgram = Count_Of_Words_Program()
+    countOfWordsProgram = CountOfWordsProgram()
     countOfWordsProgram.run()
