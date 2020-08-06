@@ -1,3 +1,5 @@
+# word: the,is,Institute
 input: input.txt
-word: total,the,is,Institute
+word: the,is,Institute
+total: true
 output: output.txt

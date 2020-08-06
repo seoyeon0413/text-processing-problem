@@ -46,7 +46,7 @@ class CountOfWordsProgram:
 
         return blankData
 
-    def find_count_words(self, words, blankData):
+    def find_count_words(self, totalOption, words, blankData):
         '''
         fine the specific words and count the words in text data
         :param words: words that have to be counted
@@ -59,9 +59,9 @@ class CountOfWordsProgram:
         count = [0 for i in range(len(wordsList))]
         for sentence in blankData:
             for wordInSentence in sentence:
+                if totalOption:
+                    totalCount += 1
                 for wIndex in range(len(wordsList)):
-                    if(wordsList[wIndex] == 'total'):
-                        totalCount += 1
                     if(wordInSentence == wordsList[wIndex]):
                         count[wIndex] += 1
 
@@ -74,9 +74,9 @@ class CountOfWordsProgram:
                 print("Check the property file: 'word' have to be splitted by just ','.")
                 print("------------------------------------------------------------------")
 
-        return count
+        return totalCount, count
 
-    def write_result_data(self, propertyData, count):
+    def write_result_data(self, propertyData, totalCount, count):
         '''
         output file name and extension option to save results by extension option
         :param propertyData: data from property
@@ -123,8 +123,8 @@ class CountOfWordsProgram:
         propertyData = self.get_property()
         inputData = self.read_data_from_file(propertyData)
         splitByBlankData = self.split_data_by_blank(inputData)
-        countOfwords = self.find_count_words(propertyData['word'], splitByBlankData)
-        self.write_result_data(propertyData, countOfwords)
+        totalCount, countOfwords = self.find_count_words(propertyData['total'], propertyData['word'], splitByBlankData)
+        self.write_result_data(propertyData, totalCount, countOfwords)
 
         print("Program Run Success!")
 
