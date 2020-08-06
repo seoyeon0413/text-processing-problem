@@ -59,8 +59,9 @@ class CountOfWordsProgram:
         count = [0 for i in range(len(wordsList))]
         for sentence in blankData:
             for wordInSentence in sentence:
-                totalCount += 1
                 for wIndex in range(len(wordsList)):
+                    if(wordsList[wIndex] == 'total'):
+                        totalCount += 1
                     if(wordInSentence == wordsList[wIndex]):
                         count[wIndex] += 1
 

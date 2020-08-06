@@ -1,3 +1,3 @@
 input: input.txt
-word: the,is,Institute
-output: output.csv
+word: total,the,is,Institute
+output: output.txt
