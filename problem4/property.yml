@@ -1,0 +1,6 @@
+# sort option (descending, ascending)
+
+input: big.json
+key: doc_content
+sort option: descending
+output: outputBIG.csv

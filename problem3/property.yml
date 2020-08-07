@@ -1,6 +1,6 @@
 # sort option (descending, ascending)
 
-input: big.json
+input: sample.json
 key: doc_content
 sort option: descending
-output: outputBIG.csv
+output: output.csv

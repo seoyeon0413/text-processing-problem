@@ -1,11 +1,8 @@
-import gc
-import os
 import json
 import sys
 import time
 from collections import Counter
 
-import numpy as np
 import pandas as pd
 import yaml
 
@@ -37,13 +34,6 @@ class JsonFileWordCountProgram:
                 json_data = json.loads(line)
                 key_data.append(json_data[key])
 
-
-        # chunk_size = 10000
-        # for chunk in pd.read_json(input_file_name, encoding='utf-8', lines = True, chunksize=chunk_size):
-        #     for i in range(chunk_size):
-        #         key_data += str(chunk.iloc[i,2])
-        #         print(chunk.iloc[i,2])
-
         return key_data
 
     def split_data_by_blank(self, data):
@@ -66,12 +56,12 @@ class JsonFileWordCountProgram:
         '''
 
         counted_data = Counter()
-        for index in range(len(splitted_data)):
-            counted_data.update(splitted_data[index])
+        for i in range(len(splitted_data)):
+            counted_data.update(splitted_data[i])
 
-        the_number_of_word = len([key for key, value in counted_data.items()])
+        the_number_of_words = len([key for key, value in counted_data.items()])
 
-        return counted_data, the_number_of_word
+        return counted_data, the_number_of_words
 
     def sort_collections_to_list(self, property_data, counted_data, length):
         '''
