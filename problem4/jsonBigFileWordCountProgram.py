@@ -126,6 +126,7 @@ class JsonFileWordCountProgram:
         print("[ 프로그램 시작 시간: %04d/%02d/%02d %02d:%02d:%02d ]" % (
             now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec))
 
+        start_time = time.time()
         property_data = self.get_yaml_property()
         i = 1
         for key_data_from_json in self.get_keydata_divided_by_chunk(property_data["input"], property_data["key"]):
@@ -135,6 +136,12 @@ class JsonFileWordCountProgram:
             i += 1
         sorted_list = self.sort_collections_to_list(property_data, num)
         self.write_result_data(property_data, sorted_list)
+        end_time = time.time()
+
+        now = time.localtime()
+        print("[ 프로그램 종료 시간: %04d/%02d/%02d %02d:%02d:%02d ]" % (
+            now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec))
+        print("- 걸린 시간: {} sec".format(end_time-start_time))
 
 
 
